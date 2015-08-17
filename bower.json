@@ -1,0 +1,24 @@
+{
+  "name": "units-css",
+  "description": "",
+  "authors": [
+    "Alex Dunphy"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:alexdunphy/units.git"
+  },
+  "main": "index.js",
+  "ignore": [
+    "**/*",
+    "!index.js",
+    "!lib/**",
+    "!dist/**",
+    "!LICENSE.md"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "isnumeric": "*",
+    "viewport-dimensions": "~0.1.0"
+  }
+}
