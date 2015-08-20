@@ -37,27 +37,6 @@ webpackJsonpunits([0],[
 
 	units.convert = function(to, value, element, property) {
 	  var parts = units.parse(value, property);
-	  var values;
-	  var len;
-	  var i;
-
-	  if (Array.isArray(parts)) {
-	    values = [];
-
-	    if (!Array.isArray(to)) {
-	      to = [to];
-	    }
-
-	    for (i = 0, len = parts.length; i < len; i++) {
-	      if (typeof to[i] === 'undefined') {
-	        to[i] = units.getDefaultUnit(property);
-	      }
-
-	      values.push(units.convert(to[i], parts[i].value + parts[i].unit, element, property));
-	    }
-
-	    return values;
-	  }
 
 	  return {
 	    'value': to === parts.unit
@@ -69,29 +48,11 @@ webpackJsonpunits([0],[
 
 	units.parse = function(value, property) {
 	  var stringValue = value.toString().trim();
-	  var parts;
-	  var matches;
-	  var values;
-	  var len;
-	  var i;
-
-	  if (/\s/g.test(value)) {
-	    values = stringValue.split(/\s/);
-	    parts = [];
-
-	    for (i = 0, len = values.length; i < len; i++) {
-	      parts.push(units.parse(values[i], property));
-	    }
-
-	    return parts;
-	  }
-
-	  parts = {
+	  var matches = stringValue.toString().match(/^(-?[\d+\.\-]+)([a-z]+|%)$/i);
+	  var parts = {
 	    'value': units.getDefaultValue(property),
 	    'unit': units.getDefaultUnit(property)
 	  };
-
-	  matches = stringValue.toString().match(/^(-?[\d+\.\-]+)([a-z]+|%)$/i);
 
 	  if (typeof units.properties[property] !== 'undefined' && units.properties[property].defaultUnit !== parts.unit) {
 	    parts.unit = units.properties[property].defaultUnit;
