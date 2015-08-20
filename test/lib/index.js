@@ -13,16 +13,18 @@ describe('units', function() {
     expect(units).to.be.an('object');
   });
 
-  var parseValid = function(value, unit, property, valueNumber) {
-    expect(units.parse(value + unit)).to.deep.equal({
+  var parseValid = function(value, unit, property, valueNumber, valueUnit) {
+    expect(units.parse(value + unit, property)).to.deep.equal({
       'value': typeof valueNumber === 'number'
         ? valueNumber
         : value,
-      'unit': unit
+      'unit': typeof valueUnit !== 'undefined'
+        ? valueUnit
+        : unit
     });
   };
 
-  it('should parse valid length values', function() {
+  it('should parse valid length values in units#parse', function() {
     for (var i = 0; i < lengthUnits.length; i++) {
       parseValid(0, lengthUnits[i], 'width');
       parseValid(1, lengthUnits[i], 'width');
@@ -36,7 +38,7 @@ describe('units', function() {
     }
   });
 
-  it('should parse valid angle values', function() {
+  it('should parse valid angle values in units#parse', function() {
     for (var i = 0; i < angleUnits.length; i++) {
       parseValid(0, angleUnits[i], 'rotateX');
       parseValid(1, angleUnits[i], 'rotateX');
@@ -48,5 +50,28 @@ describe('units', function() {
       parseValid(-0.000001, angleUnits[i], 'rotateX');
       parseValid('-.000001', angleUnits[i], 'rotateX', -0.000001);
     }
+  });
+
+  it('should use correct default units when numeric values are passed to units#parse', function() {
+    parseValid(0, '', 'width', null, 'px');
+    parseValid(0, '', 'opacity', null, '');
+    parseValid(0, '', 'rotateX', null, 'deg');
+    parseValid(0, '', 'rotateY', null, 'deg');
+    parseValid(0, '', 'rotateZ', null, 'deg');
+    parseValid(0, '', 'skewX', null, 'deg');
+    parseValid(0, '', 'skewY', null, 'deg');
+    parseValid(0, '', 'scaleX', null, '');
+    parseValid(0, '', 'scaleY', null, '');
+    parseValid(0, '', 'scaleZ', null, '');
+    parseValid(0, '', 'line-height', null, '');
+  });
+
+  it('should use correct default values when non-numeric values are passed to units#parse', function() {
+    parseValid('', 'px', 'width', 0, 'px');
+    parseValid('', '', 'opacity', 1, '');
+    parseValid('', '', 'scaleX', 1, '');
+    parseValid('', '', 'scaleY', 1, '');
+    parseValid('', '', 'scaleZ', 1, '');
+    parseValid('', '', 'line-height', 1, '');
   });
 });

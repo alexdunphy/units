@@ -99,21 +99,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	units.parse = function(value, property) {
-	  var stringValue = value.toString().trim();
-	  var matches = stringValue.toString().match(/^(-?[\d+\.\-]+)([a-z]+|%)$/i);
-	  var parts = {
-	    'value': units.getDefaultValue(property),
-	    'unit': units.getDefaultUnit(property)
-	  };
-
-	  if (typeof units.properties[property] !== 'undefined' && units.properties[property].defaultUnit !== parts.unit) {
-	    parts.unit = units.properties[property].defaultUnit;
-	  }
+	  var matches = value.toString().trim().match(/^(-?[\d+\.\-]+)([a-z]+|%)$/i);
+	  var parts = {};
 
 	  if (matches === null) {
-	    isNumeric(value)
-	      ? parts.value = value
-	      : parts.unit = value;
+	    if (isNumeric(value)) {
+	      parts.value = value;
+	      parts.unit = units.getDefaultUnit(property);
+	    } else {
+	      parts.value = units.getDefaultValue(property);
+	      parts.unit = value;
+	    }
 	  } else {
 	    parts.value = matches[1];
 	    parts.unit = matches[2];
@@ -129,13 +125,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	units.getDefaultValue = function(property) {
-	  return typeof units.properties[property] !== 'undefined' && typeof units.properties[property].defaultValue !== 'undefined'
+	  return typeof units.properties[property] !== 'undefined'
 	    ? units.properties[property].defaultValue
 	    : 0;
 	};
 
 	units.getDefaultUnit = function(property) {
-	  return typeof units.properties[property] !== 'undefined' && typeof units.properties[property].defaultUnit !== 'undefined'
+	  return typeof units.properties[property] !== 'undefined'
 	    ? units.properties[property].defaultUnit
 	    : 'px';
 	};
@@ -519,10 +515,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	utilities.dpi = (function () {
 	  // Preserve dpi-reliant conversion functionality when not running in browser environment
 	  if (typeof window === 'undefined') {
+	    /* istanbul ignore next */
 	    return 96;
 	  }
 
-	  return utilities.getCreatedElementWidth(document.getElementsByTagName('body')[0], {
+	  return utilities.getCreatedElementWidth(document.body, {
 	    'width': '1in'
 	  });
 	}());
