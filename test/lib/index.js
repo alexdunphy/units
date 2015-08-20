@@ -74,4 +74,18 @@ describe('units', function() {
     parseValid('', '', 'scaleZ', 1, '');
     parseValid('', '', 'line-height', 1, '');
   });
+
+  it('should return correct defaults in units#getDefault', function() {
+    expect(units.getDefault('width')).to.equal('0px');
+    expect(units.getDefault('opacity')).to.equal('1');
+    expect(units.getDefault('rotateX')).to.equal('0deg');
+    expect(units.getDefault('rotateY')).to.equal('0deg');
+    expect(units.getDefault('rotateZ')).to.equal('0deg');
+    expect(units.getDefault('skewX')).to.equal('0deg');
+    expect(units.getDefault('skewY')).to.equal('0deg');
+    expect(units.getDefault('scaleX')).to.equal('1');
+    expect(units.getDefault('scaleY')).to.equal('1');
+    expect(units.getDefault('scaleZ')).to.equal('1');
+    expect(units.getDefault('line-height')).to.equal('1');
+  });
 });

@@ -73,13 +73,13 @@ webpackJsonpunits([0],[
 	};
 
 	units.getDefaultValue = function(property) {
-	  return typeof units.properties[property] !== 'undefined'
+	  return typeof units.properties[property] !== 'undefined' && typeof units.properties[property].defaultValue !== 'undefined'
 	    ? units.properties[property].defaultValue
 	    : 0;
 	};
 
 	units.getDefaultUnit = function(property) {
-	  return typeof units.properties[property] !== 'undefined'
+	  return typeof units.properties[property] !== 'undefined' && typeof units.properties[property].defaultUnit !== 'undefined'
 	    ? units.properties[property].defaultUnit
 	    : 'px';
 	};
