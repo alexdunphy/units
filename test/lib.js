@@ -32,7 +32,7 @@ webpackJsonpunits([0],[
 	var units = {};
 
 
-	//  Public interface
+	// Public interface
 	//------------------------------------------------------------------------------
 
 	units.convert = function(to, value, element, property) {
@@ -85,7 +85,7 @@ webpackJsonpunits([0],[
 	};
 
 
-	//  Protected methods
+	// Protected methods
 	//------------------------------------------------------------------------------
 
 	units.processConversion = function(fromUnits, toUnits, value, element, property) {
@@ -107,9 +107,8 @@ webpackJsonpunits([0],[
 	  var type = null;
 
 	  for (property in units.conversions) {
-	    if (!units.conversions.hasOwnProperty(property)) continue;
-
-	    if (typeof units.conversions[property][fromUnits] !== 'undefined') {
+	    /* istanbul ignore else */
+	    if (units.conversions.hasOwnProperty(property) && typeof units.conversions[property][fromUnits] !== 'undefined') {
 	      type = units.conversions[property];
 	      break;
 	    }
@@ -119,13 +118,13 @@ webpackJsonpunits([0],[
 	};
 
 
-	//  Expose conversion functions
+	// Expose conversion functions
 	//------------------------------------------------------------------------------
 
 	units.conversions = conversions;
 
 
-	//  Properties with non default unit/value
+	// Properties with non default unit/value
 	//------------------------------------------------------------------------------
 
 	units.properties = {
@@ -160,7 +159,7 @@ webpackJsonpunits([0],[
 	    'defaultUnit': '',
 	    'defaultValue': 1
 	  },
-	  'line-height': {
+	  'lineHeight': {
 	    'defaultUnit': '',
 	    'defaultValue': 1
 	  }
@@ -206,7 +205,7 @@ webpackJsonpunits([0],[
 
 	length[''] = {
 	  'px': function(value, element, property) {
-	    return parseFloat(getComputedStyle(element, '')['font-size']) * value;
+	    return parseFloat(getComputedStyle(element, '').fontSize) * value;
 	  }
 	};
 
@@ -266,7 +265,7 @@ webpackJsonpunits([0],[
 
 	length.px = {
 	  '': function(value, element, property) {
-	    return value / parseFloat(getComputedStyle(element, '')['font-size']);
+	    return value / parseFloat(getComputedStyle(element, '').fontSize);
 	  },
 
 	  '%': function(value, element, property) {
@@ -370,21 +369,6 @@ webpackJsonpunits([0],[
 
 	var utilities = {};
 
-	utilities.selfReferenceTriggers = [
-	  'perspective',
-	  'translate',
-	  'translateX',
-	  'translateY',
-	  'translateZ',
-	  'transformOrigin'
-	];
-
-	utilities.layoutYTriggers = [
-	  'height',
-	  'top',
-	  'translateY'
-	];
-
 	utilities.getElementFontSize = function(element) {
 	  return parseFloat(getComputedStyle(element, '').fontSize);
 	};
@@ -401,8 +385,10 @@ webpackJsonpunits([0],[
 
 	  if (typeof properties !== 'undefined') {
 	    for (property in properties) {
-	      if (!properties.hasOwnProperty(property)) continue;
-	      element.style[property] = properties[property];
+	      /* istanbul ignore else */
+	      if (properties.hasOwnProperty(property)) {
+	        element.style[property] = properties[property];
+	      }
 	    }
 	  }
 
@@ -430,31 +416,48 @@ webpackJsonpunits([0],[
 	  return utilities.getCreatedElementDimensions.apply(null, arguments)[1];
 	};
 
+	var selfReferenceTriggers = [
+	  'perspective',
+	  'translateX',
+	  'translateY',
+	  'translateZ',
+	  'transformOrigin'
+	];
+
+	var layoutYTriggers = [
+	  'height',
+	  'top',
+	  'translateY'
+	];
+
+	var positionTriggers = ['absolute', 'fixed'];
+
 	utilities.getRelativeElementDimension = function(element, property) {
 	  var reference;
 	  var dimension;
-	  var referenceComputedStyle;
-	  var elementPosition;
+	  var referenceComputed;
+	  var useY = layoutYTriggers.indexOf(property) > -1;
+	  var useSelf = selfReferenceTriggers.indexOf(property) > -1;
+	  var positioned = positionTriggers.indexOf(getComputedStyle(element, '').position) > -1;
 
-	  reference = utilities.selfReferenceTriggers.indexOf(property) === -1
-	    ? element.offsetParent || element.parentNode || document.body
-	    : element;
+	  if (useSelf) {
+	    reference = element;
+	  } else {
+	    reference = positioned
+	      ? element.offsetParent
+	      : element.parentNode;
+	  }
 
-	  dimension = utilities.layoutYTriggers.indexOf(property) !== -1
+	  dimension = useY
 	    ? reference.offsetHeight
 	    : reference.offsetWidth;
 
-	  // If using ancestor as reference
-	  if (reference !== element) {
-	    elementPosition = getComputedStyle(element, '').position;
+	  if (!useSelf && positioned) {
+	    referenceComputed = getComputedStyle(reference, '');
 
-	    if (elementPosition === 'absolute' || elementPosition === 'fixed') {
-	      referenceComputedStyle = getComputedStyle(reference, '');
-
-	      dimension -= useXOrY === 'x'
-	        ? parseFloat(computed.paddingRight) + parseFloat(computed.paddingLeft)
-	        : parseFloat(computed.paddingTop) + parseFloat(computed.paddingBottom);
-	    }
+	    dimension -= useY
+	      ? parseFloat(referenceComputed.paddingTop) + parseFloat(referenceComputed.paddingBottom)
+	      : parseFloat(referenceComputed.paddingRight) + parseFloat(referenceComputed.paddingLeft);
 	  }
 
 	  return dimension;
@@ -462,8 +465,8 @@ webpackJsonpunits([0],[
 
 	utilities.dpi = (function () {
 	  // Preserve dpi-reliant conversion functionality when not running in browser environment
+	  /* istanbul ignore next */
 	  if (typeof window === 'undefined') {
-	    /* istanbul ignore next */
 	    return 96;
 	  }
 
