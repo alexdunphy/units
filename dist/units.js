@@ -1,4 +1,3 @@
-/*! @link https://github.com/alexdunphy/units, @version 0.0.0, @license MIT */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -275,7 +274,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	length.cm = {
 	  'px': function(value, element, property) {
-	    return value / 2.54 * utilities.ifZeroThenOne(utilities.dpi);
+	    return value / 2.54 * utilities.ifZeroThenOne(utilities.DPI);
 	  }
 	};
 
@@ -293,25 +292,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	length['in'] = {
 	  'px': function(value, element, property) {
-	    return value * utilities.dpi;
+	    return value * utilities.DPI;
 	  }
 	};
 
 	length.mm = {
 	  'px': function(value, element, property) {
-	    return value / 2.54 * utilities.ifZeroThenOne(utilities.dpi) / 10;
+	    return value / 2.54 * utilities.ifZeroThenOne(utilities.DPI) / 10;
 	  }
 	};
 
 	length.pc = {
 	  'px': function(value, element, property) {
-	    return value * ((utilities.dpi / 72) * 12);
+	    return value * ((utilities.DPI / 72) * 12);
 	  }
 	};
 
 	length.pt = {
 	  'px': function(value, element, property) {
-	    return value * utilities.dpi / 72;
+	    return value * utilities.DPI / 72;
 	  }
 	};
 
@@ -329,7 +328,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  'cm': function(value, element, property) {
-	    return value / utilities.ifZeroThenOne(utilities.dpi) * 2.54;
+	    return value / utilities.ifZeroThenOne(utilities.DPI) * 2.54;
 	  },
 
 	  'em': function(value, element, property) {
@@ -341,19 +340,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  'in': function(value, element, property) {
-	    return value / utilities.ifZeroThenOne(utilities.dpi);
+	    return value / utilities.ifZeroThenOne(utilities.DPI);
 	  },
 
 	  'mm': function(value, element, property) {
-	    return value * 2.54 / utilities.ifZeroThenOne(utilities.dpi) * 10;
+	    return value * 2.54 / utilities.ifZeroThenOne(utilities.DPI) * 10;
 	  },
 
 	  'pc': function(value, element, property) {
-	    return value / utilities.ifZeroThenOne(utilities.getElementFontSize(element));
+	    return value / ((utilities.DPI / 72) * 12);
 	  },
 
 	  'pt': function(value, element, property) {
-	    return value * 72 / 96;
+	    return value * 72 / utilities.DPI;
 	  },
 
 	  'rem': function(value, element, property) {
@@ -361,19 +360,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  'vh': function(value, element, property) {
-	    return value / utilities.ifZeroThenOne((viewport.getHeight() / 100));
+	    return value / utilities.ifZeroThenOne((viewport.height() / 100));
 	  },
 
 	  'vmax': function(value, element, property) {
-	    return value / utilities.ifZeroThenOne((viewport.getMax() / 100));
+	    return value / utilities.ifZeroThenOne((viewport.max() / 100));
 	  },
 
 	  'vmin': function(value, element, property) {
-	    return value / utilities.ifZeroThenOne((viewport.getMin() / 100));
+	    return value / utilities.ifZeroThenOne((viewport.min() / 100));
 	  },
 
 	  'vw': function(value, element, property) {
-	    return value / utilities.ifZeroThenOne((viewport.getWidth() / 100));
+	    return value / utilities.ifZeroThenOne((viewport.width() / 100));
 	  }
 	};
 
@@ -385,25 +384,25 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	length.vh = {
 	  'px': function(value, element, property) {
-	    return value * (viewport.getHeight() / 100);
+	    return value * (viewport.height() / 100);
 	  }
 	};
 
 	length.vmax = {
 	  'px': function(value, element, property) {
-	    return value * (viewport.getMax() / 100);
+	    return value * (viewport.max() / 100);
 	  }
 	};
 
 	length.vmin = {
 	  'px': function(value, element, property) {
-	    return value * (viewport.getMin() / 100);
+	    return value * (viewport.min() / 100);
 	  }
 	};
 
 	length.vw = {
 	  'px': function(value, element, property) {
-	    return value * (viewport.getWidth() / 100);
+	    return value * (viewport.width() / 100);
 	  }
 	};
 
@@ -597,6 +596,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  viewport.setDimensions();
 	}
+
+	console.log(viewport);
 
 	// Exports
 	module.exports = viewport;

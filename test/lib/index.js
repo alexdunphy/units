@@ -15,6 +15,8 @@ describe('units', function() {
   document.body.appendChild(element);
   document.body.style.height = '100px';
   element.style.height = '100px';
+  element.style.width = '1in';
+  var DPI = element.offsetWidth;
 
 
   // Library
@@ -121,11 +123,30 @@ describe('units', function() {
 
   it('should convert valid px length units in units#convert', function() {
     var value = 10;
+    var elementFontSize = parseFloat(getComputedStyle(element, '').fontSize);
 
     convert('px', value + 'px', 'width', value);
-    convert('', value + 'px', 'width', value / parseFloat(getComputedStyle(element, '').fontSize));
+    convert('', value + 'px', 'width', value / elementFontSize);
     convert('%', value + 'px', 'width', (value / element.parentNode.offsetWidth) * 100);
+    convert('cm', value + 'px', 'width', value / DPI * 2.54);
+    convert('em', value + 'px', 'width', value / elementFontSize);
+    convert('in', value + 'px', 'width', value / DPI);
+    convert('mm', value + 'px', 'width', value * 2.54 / DPI * 10);
+    convert('pc', value + 'px', 'width', value / ((DPI / 72) * 12));
+    convert('pt', value + 'px', 'width', value * 72 / DPI);
     convert('rem', value + 'px', 'width', value / parseFloat(getComputedStyle(document.documentElement, '').fontSize));
+
+    // Setup + tests + tear-down for units dependent on element content
+    element.style.width = null;
+    element.style.height = null;
+    element.style.position = 'absolute';
+    element.innerHTML = '0';
+    convert('ch', value + 'px', 'width', value / element.offsetWidth);
+    element.innerHTML = 'x';
+    convert('ex', value + 'px', 'width', value / element.offsetHeight);
+    element.style.height = '100px';
+    element.style.position = null;
+    element.innerHTML = null;
 
     // Cover utilities#getRelativeElementDimension branches
     convert('%', value + 'px', 'translateY', (value / element.offsetHeight) * 100);
