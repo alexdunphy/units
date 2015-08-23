@@ -199,6 +199,7 @@ gulp.task('webpack:dist', function(done) {
   });
 });
 
+
 // Headers
 //------------------------------------------------------------------------------
 
@@ -215,6 +216,7 @@ gulp.task('headers', function() {
     ].join(''), {'pkg': config.pkg}))
     .pipe(gulp.dest(config.path.dist));
 });
+
 
 // Lint
 //------------------------------------------------------------------------------
@@ -250,6 +252,7 @@ gulp.task('lint', function() {
     .pipe(gulpif(!global.isWatching, eslint.failOnError()));
 });
 
+
 // Minify
 //------------------------------------------------------------------------------
 
@@ -262,6 +265,7 @@ gulp.task('uglify', function() {
     .pipe(rename(config.lib.file.replace(/\.js$/, '.min.js')))
     .pipe(gulp.dest(config.path.dist));
 });
+
 
 // Watch
 //------------------------------------------------------------------------------
