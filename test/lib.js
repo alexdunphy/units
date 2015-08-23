@@ -463,7 +463,7 @@ webpackJsonpunits([0],[
 	  return dimension;
 	};
 
-	utilities.dpi = (function () {
+	utilities.DPI = (function () {
 	  // Preserve dpi-reliant conversion functionality when not running in browser environment
 	  /* istanbul ignore next */
 	  if (typeof window === 'undefined') {
