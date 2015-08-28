@@ -10,7 +10,11 @@ module.exports = function(config) {
   var karmaConfig = {
     'coverageReporter': {
       'reporters': [
-        {'type': 'lcov', 'dir': 'test/coverage/', 'subdir': '.'},
+        {
+          'type': 'lcov',
+          'dir': 'test',
+          'subdir': 'coverage'
+        },
         {'type': 'text'}
       ]
     },
