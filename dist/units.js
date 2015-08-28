@@ -1,3 +1,4 @@
+/*! @link https://github.com/alexdunphy/units, @version 0.0.0, @license MIT */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -596,8 +597,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  viewport.setDimensions();
 	}
-
-	console.log(viewport);
 
 	// Exports
 	module.exports = viewport;
