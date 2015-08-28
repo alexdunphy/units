@@ -50,7 +50,7 @@ describe('units', function() {
     });
   };
 
-  it('should parse valid length VALUEs in units#parse', function() {
+  it('should parse valid length values in units#parse', function() {
     for (var i = 0; i < lengthUnits.length; i++) {
       parse(0, lengthUnits[i], 'width');
       parse(1, lengthUnits[i], 'width');
@@ -64,7 +64,7 @@ describe('units', function() {
     }
   });
 
-  it('should parse valid angle VALUEs in units#parse', function() {
+  it('should parse valid angle values in units#parse', function() {
     for (var i = 0; i < angleUnits.length; i++) {
       parse(0, angleUnits[i], 'rotateX');
       parse(1, angleUnits[i], 'rotateX');
@@ -78,7 +78,7 @@ describe('units', function() {
     }
   });
 
-  it('should use correct default units when numeric VALUEs are passed to units#parse', function() {
+  it('should use correct default units when numeric values are passed to units#parse', function() {
     parse(0, '', 'width', null, 'px');
     parse(0, '', 'opacity', null, '');
     parse(0, '', 'rotateX', null, 'deg');
@@ -92,7 +92,7 @@ describe('units', function() {
     parse(0, '', 'lineHeight', null, '');
   });
 
-  it('should use correct default VALUEs when non-numeric VALUEs are passed to units#parse', function() {
+  it('should use correct default values when non-numeric values are passed to units#parse', function() {
     parse('', 'px', 'width', 0, 'px');
     parse('', '', 'opacity', 1, '');
     parse('', '', 'scaleX', 1, '');
@@ -120,7 +120,7 @@ describe('units', function() {
   });
 
 
-  // units#convert
+  // units#convert (length)
   //------------------------------------------------------------------------------
 
   var convert = function(to, value, property, expectedValue) {
@@ -130,7 +130,7 @@ describe('units', function() {
     });
   };
 
-  it('should convert valid px length units in units#convert', function() {
+  it('should convert valid px (default) length units in units#convert', function() {
     convert('px', VALUE + 'px', 'width', VALUE);
     convert('', VALUE + 'px', 'width', VALUE / ELEMENT_FONT_SIZE);
     convert('%', VALUE + 'px', 'width', (VALUE / element.parentNode.offsetWidth) * 100);
@@ -218,5 +218,27 @@ describe('units', function() {
 
   it('should convert valid rem length units in units#convert', function() {
     convert('px', VALUE + 'rem', 'width', VALUE * DOCUMENT_FONT_SIZE);
+  });
+
+
+  // units#convert (angle)
+  //------------------------------------------------------------------------------
+
+  it('should convert valid deg (default) length units in units#convert', function() {
+    convert('grad', VALUE + 'deg', 'rotateZ', VALUE / 0.9);
+    convert('rad', VALUE + 'deg', 'rotateZ', VALUE * (Math.PI / 180));
+    convert('turn', VALUE + 'deg', 'rotateZ', VALUE / 360);
+  });
+
+  it('should convert valid grad length units in units#convert', function() {
+    convert('deg', VALUE + 'grad', 'rotateZ', VALUE * 0.9);
+  });
+
+  it('should convert valid rad length units in units#convert', function() {
+    convert('deg', VALUE + 'rad', 'rotateZ', VALUE / (Math.PI / 180));
+  });
+
+  it('should convert valid turn length units in units#convert', function() {
+    convert('deg', VALUE + 'turn', 'rotateZ', VALUE * 360);
   });
 });
