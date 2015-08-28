@@ -269,7 +269,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	length.ch = {
 	  'px': function(value, element, property) {
-	    return value / utilities.ifZeroThenOne(utilities.getCreatedElementWidth(element, null, '0'));
+	    return value * utilities.ifZeroThenOne(utilities.getCreatedElementWidth(element, null, '0'));
 	  }
 	};
 
