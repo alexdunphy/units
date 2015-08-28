@@ -237,8 +237,12 @@ gulp.task('lint', function() {
     .pipe(eslint())
     .pipe(eslint.format())
     .pipe(eslint.format(function(files) {
+      var error = false;
+
       _.forEach(files, function(file) {
-        if (file.messages.length > 0) {
+        error = file.messages.length > 0;
+
+        if (error) {
           logger.error.call(that, new gutil.PluginError('lint', {
             'message': file.filePath + ':' + file.messages[0].line + ' - ' + file.messages[0].message
           }));
@@ -246,6 +250,10 @@ gulp.task('lint', function() {
           return false; // (break)
         }
       });
+
+      if (!error) {
+        logger.success('lint', 'ESLint passed');
+      }
     }))
     .pipe(gulpif(!global.isWatching, eslint.failOnError()));
 });
