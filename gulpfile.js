@@ -34,6 +34,7 @@ config.path = {};
 config.path.root = require('path').resolve(__dirname) + '/';
 config.path.dist = config.path.root + 'dist/';
 config.path.test = config.path.root + 'test/';
+config.path.spec = config.path.test + 'spec/';
 config.path.lib = config.path.root + 'lib/';
 
 // Package
@@ -55,7 +56,7 @@ config.karma = {
   'files': [
     {'pattern': config.path.test + 'vendor/**/*.js', 'watched': false},
     config.path.test + 'lib.js',
-    config.path.test + 'lib/**/*.js'
+    config.path.spec + '**/*.js'
   ],
   'preprocessors': {}
 };
@@ -228,7 +229,7 @@ gulp.task('lint', function() {
   return gulp.src([
     config.lib.entry,
     config.path.lib + '**/*.js',
-    config.path.test + 'lib/**/*.js',
+    config.path.spec + '**/*.js',
     config.path.test + 'karma.js',
     config.path.test + 'sauce-browsers.js',
     config.karma.configFile,
