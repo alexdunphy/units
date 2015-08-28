@@ -70,11 +70,9 @@ var notify = require('gulp-notify');
 var logger = {
   'error': function(error) {
     notify.onError({
-      'title': 'Error (' + error.plugin + ')',
+      'title': '❌  ' + error.plugin,
       'message': logger.format(error.message)
-    }).apply(this, arguments);
-
-    this.emit('end'); // Prevent gulp hanging on task
+    }).call(this, error);
   },
   'format': function() {
     return [].slice.call(arguments).join(' ').replace(config.path.root, '', 'g');
