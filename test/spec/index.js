@@ -8,23 +8,24 @@ describe('units', function() {
   // Setup
   //------------------------------------------------------------------------------
 
-  var lengthUnits = ['%', 'ch', 'cm', 'em', 'ex', 'in', 'mm', 'pc', 'pt', 'px', 'rem', 'vh', 'vmax', 'vmin', 'vw'];
-  var angleUnits = ['deg', 'grad', 'rad', 'turn'];
   var MAX_SAFE_INTEGER = 9007199254740991;
   var VALUE = 10;
   var DOCUMENT_FONT_SIZE = parseFloat(getComputedStyle(document.documentElement, '').fontSize);
   var element = document.createElement('div');
-  document.body.appendChild(element);
-  document.body.style.height = '100px';
-  element.style.width = '1in';
-  var DPI = element.offsetWidth;
-  var ELEMENT_FONT_SIZE = parseFloat(getComputedStyle(element, '').fontSize);
   var resetElement = function() {
     element.style.position = null;
     element.innerHTML = null;
     element.style.height = '100px';
     element.style.width = '100px';
   };
+  var ELEMENT_FONT_SIZE;
+  var DPI;
+
+  document.body.appendChild(element);
+  document.body.style.height = '100px';
+  element.style.width = '1in';
+  DPI = element.offsetWidth;
+  ELEMENT_FONT_SIZE = parseFloat(getComputedStyle(element, '').fontSize);
   resetElement();
 
 
@@ -51,7 +52,10 @@ describe('units', function() {
   };
 
   it('should parse valid length values in units#parse', function() {
-    for (var i = 0; i < lengthUnits.length; i++) {
+    var lengthUnits = ['%', 'ch', 'cm', 'em', 'ex', 'in', 'mm', 'pc', 'pt', 'px', 'rem', 'vh', 'vmax', 'vmin', 'vw'];
+    var i;
+
+    for (i = 0; i < lengthUnits.length; i++) {
       parse(0, lengthUnits[i], 'width');
       parse(1, lengthUnits[i], 'width');
       parse(-1, lengthUnits[i], 'width');
@@ -65,7 +69,10 @@ describe('units', function() {
   });
 
   it('should parse valid angle values in units#parse', function() {
-    for (var i = 0; i < angleUnits.length; i++) {
+    var angleUnits = ['deg', 'grad', 'rad', 'turn'];
+    var i;
+
+    for (i = 0; i < angleUnits.length; i++) {
       parse(0, angleUnits[i], 'rotateX');
       parse(1, angleUnits[i], 'rotateX');
       parse(-1, angleUnits[i], 'rotateX');
