@@ -39,13 +39,13 @@ describe('units', function() {
   // units#parse
   //------------------------------------------------------------------------------
 
-  var parse = function(value, unit, property, VALUENumber, VALUEUnit) {
+  var parse = function(value, unit, property, valueNumber, valueUnit) {
     expect(units.parse(value + unit, property)).to.deep.equal({
-      'value': typeof VALUENumber === 'number'
-        ? VALUENumber
+      'value': typeof valueNumber === 'number'
+        ? valueNumber
         : value,
-      'unit': typeof VALUEUnit !== 'undefined'
-        ? VALUEUnit
+      'unit': typeof valueUnit !== 'undefined'
+        ? valueUnit
         : unit
     });
   };
