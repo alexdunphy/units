@@ -107,22 +107,33 @@ describe('units', function() {
   // units#getDefault
   //------------------------------------------------------------------------------
 
-  it('should return correct defaults in units#getDefault', function() {
-    expect(units.getDefault('width')).to.equal('0px');
-    expect(units.getDefault('opacity')).to.equal('1');
-    expect(units.getDefault('rotate')).to.equal('0deg');
-    expect(units.getDefault('rotateX')).to.equal('0deg');
-    expect(units.getDefault('rotateY')).to.equal('0deg');
-    expect(units.getDefault('rotateZ')).to.equal('0deg');
-    expect(units.getDefault('skew')).to.equal('0deg');
-    expect(units.getDefault('skewX')).to.equal('0deg');
-    expect(units.getDefault('skewY')).to.equal('0deg');
-    expect(units.getDefault('scale')).to.equal('1');
-    expect(units.getDefault('scale3d')).to.equal('1');
-    expect(units.getDefault('scaleX')).to.equal('1');
-    expect(units.getDefault('scaleY')).to.equal('1');
-    expect(units.getDefault('scaleZ')).to.equal('1');
-    expect(units.getDefault('lineHeight')).to.equal('1');
+  it('should return correct default values in units#getDefaultValue', function() {
+    expect(units.getDefaultValue('width')).to.equal(0);
+    expect(units.getDefaultValue('opacity')).to.equal(1);
+    expect(units.getDefaultValue('scale')).to.equal(1);
+    expect(units.getDefaultValue('scale3d')).to.equal(1);
+    expect(units.getDefaultValue('scaleX')).to.equal(1);
+    expect(units.getDefaultValue('scaleY')).to.equal(1);
+    expect(units.getDefaultValue('scaleZ')).to.equal(1);
+    expect(units.getDefaultValue('lineHeight')).to.equal(1);
+  });
+
+  it('should return correct default units in units#getDefaultUnit', function() {
+    expect(units.getDefaultUnit('width')).to.equal('px');
+    expect(units.getDefaultUnit('opacity')).to.equal('');
+    expect(units.getDefaultUnit('rotate')).to.equal('deg');
+    expect(units.getDefaultUnit('rotate3d')).to.equal('deg');
+    expect(units.getDefaultUnit('rotateX')).to.equal('deg');
+    expect(units.getDefaultUnit('rotateY')).to.equal('deg');
+    expect(units.getDefaultUnit('rotateZ')).to.equal('deg');
+    expect(units.getDefaultUnit('skew')).to.equal('deg');
+    expect(units.getDefaultUnit('skewX')).to.equal('deg');
+    expect(units.getDefaultUnit('skewY')).to.equal('deg');
+    expect(units.getDefaultUnit('scale')).to.equal('');
+    expect(units.getDefaultUnit('scaleX')).to.equal('');
+    expect(units.getDefaultUnit('scaleY')).to.equal('');
+    expect(units.getDefaultUnit('scaleZ')).to.equal('');
+    expect(units.getDefaultUnit('lineHeight')).to.equal('');
   });
 
 
@@ -130,10 +141,7 @@ describe('units', function() {
   //------------------------------------------------------------------------------
 
   var convert = function(to, value, property, expectedValue) {
-    expect(units.convert(to, value, element, property)).to.deep.equal({
-      'value': expectedValue,
-      'unit': to
-    });
+    expect(units.convert(to, value, element, property)).to.equal(expectedValue);
   };
 
   it('should convert valid px (default) length units in units#convert', function() {

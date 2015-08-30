@@ -32,18 +32,49 @@ webpackJsonpunits([0],[
 	var units = {};
 
 
+	// Expose conversion functions
+	//------------------------------------------------------------------------------
+
+	units.conversions = conversions;
+
+
+	// Properties with non default unit/value
+	//------------------------------------------------------------------------------
+
+	var properties = units.properties = {};
+
+	properties.lineHeight =
+	properties.opacity =
+	properties.scale =
+	properties.scale3d =
+	properties.scaleX =
+	properties.scaleY =
+	properties.scaleZ = {
+	  'defaultUnit': '',
+	  'defaultValue': 1
+	};
+
+	properties.rotate =
+	properties.rotate3d =
+	properties.rotateX =
+	properties.rotateY =
+	properties.rotateZ =
+	properties.skew =
+	properties.skewX =
+	properties.skewY = {
+	  'defaultUnit': 'deg'
+	};
+
+
 	// Public interface
 	//------------------------------------------------------------------------------
 
 	units.convert = function(to, value, element, property) {
 	  var parts = units.parse(value, property);
 
-	  return {
-	    'value': to === parts.unit
-	      ? parts.value
-	      : units.processConversion(parts.unit, to, parts.value, element, property),
-	    'unit': to
-	  };
+	  return to === parts.unit
+	    ? parts.value
+	    : units.processConversion(parts.unit, to, parts.value, element, property);
 	};
 
 	units.parse = function(value, property) {
@@ -74,19 +105,15 @@ webpackJsonpunits([0],[
 	  return parts;
 	};
 
-	units.getDefault = function(property) {
-	  return units.getDefaultValue(property) + units.getDefaultUnit(property);
-	};
-
 	units.getDefaultValue = function(property) {
-	  return typeof units.properties[property] !== 'undefined' && typeof units.properties[property].defaultValue !== 'undefined'
-	    ? units.properties[property].defaultValue
+	  return typeof properties[property] !== 'undefined' && typeof properties[property].defaultValue !== 'undefined'
+	    ? properties[property].defaultValue
 	    : 0;
 	};
 
 	units.getDefaultUnit = function(property) {
-	  return typeof units.properties[property] !== 'undefined' && typeof units.properties[property].defaultUnit !== 'undefined'
-	    ? units.properties[property].defaultUnit
+	  return typeof properties[property] !== 'undefined' && typeof properties[property].defaultUnit !== 'undefined'
+	    ? properties[property].defaultUnit
 	    : 'px';
 	};
 
@@ -112,49 +139,16 @@ webpackJsonpunits([0],[
 	  var property;
 	  var type = null;
 
-	  for (property in units.conversions) {
+	  for (property in conversions) {
 	    /* istanbul ignore else */
-	    if (units.conversions.hasOwnProperty(property) && typeof units.conversions[property][fromUnits] !== 'undefined') {
-	      type = units.conversions[property];
+	    if (conversions.hasOwnProperty(property) && typeof conversions[property][fromUnits] !== 'undefined') {
+	      type = conversions[property];
 	      break;
 	    }
 	  }
 
 	  return type;
 	};
-
-
-	// Properties with non default unit/value
-	//------------------------------------------------------------------------------
-
-	var properties = units.properties = {};
-
-	properties.lineHeight =
-	properties.opacity =
-	properties.scale =
-	properties.scale3d =
-	properties.scaleX =
-	properties.scaleY =
-	properties.scaleZ = {
-	  'defaultUnit': '',
-	  'defaultValue': 1
-	};
-
-	properties.rotate =
-	properties.rotateX =
-	properties.rotateY =
-	properties.rotateZ =
-	properties.skew =
-	properties.skewX =
-	properties.skewY = {
-	  'defaultUnit': 'deg'
-	};
-
-
-	// Expose conversion functions
-	//------------------------------------------------------------------------------
-
-	units.conversions = conversions;
 
 	// Exports
 	module.exports = units;
