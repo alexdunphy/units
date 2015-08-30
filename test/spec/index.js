@@ -110,11 +110,15 @@ describe('units', function() {
   it('should return correct defaults in units#getDefault', function() {
     expect(units.getDefault('width')).to.equal('0px');
     expect(units.getDefault('opacity')).to.equal('1');
+    expect(units.getDefault('rotate')).to.equal('0deg');
     expect(units.getDefault('rotateX')).to.equal('0deg');
     expect(units.getDefault('rotateY')).to.equal('0deg');
     expect(units.getDefault('rotateZ')).to.equal('0deg');
+    expect(units.getDefault('skew')).to.equal('0deg');
     expect(units.getDefault('skewX')).to.equal('0deg');
     expect(units.getDefault('skewY')).to.equal('0deg');
+    expect(units.getDefault('scale')).to.equal('1');
+    expect(units.getDefault('scale3d')).to.equal('1');
     expect(units.getDefault('scaleX')).to.equal('1');
     expect(units.getDefault('scaleY')).to.equal('1');
     expect(units.getDefault('scaleZ')).to.equal('1');

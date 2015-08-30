@@ -176,52 +176,37 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 
+	// Properties with non default unit/value
+	//------------------------------------------------------------------------------
+
+	var properties = units.properties = {};
+
+	properties.lineHeight =
+	properties.opacity =
+	properties.scale =
+	properties.scale3d =
+	properties.scaleX =
+	properties.scaleY =
+	properties.scaleZ = {
+	  'defaultUnit': '',
+	  'defaultValue': 1
+	};
+
+	properties.rotate =
+	properties.rotateX =
+	properties.rotateY =
+	properties.rotateZ =
+	properties.skew =
+	properties.skewX =
+	properties.skewY = {
+	  'defaultUnit': 'deg'
+	};
+
+
 	// Expose conversion functions
 	//------------------------------------------------------------------------------
 
 	units.conversions = conversions;
-
-
-	// Properties with non default unit/value
-	//------------------------------------------------------------------------------
-
-	units.properties = {
-	  'opacity': {
-	    'defaultUnit': '',
-	    'defaultValue': 1
-	  },
-	  'rotateX': {
-	    'defaultUnit': 'deg'
-	  },
-	  'rotateY': {
-	    'defaultUnit': 'deg'
-	  },
-	  'rotateZ': {
-	    'defaultUnit': 'deg'
-	  },
-	  'skewX': {
-	    'defaultUnit': 'deg'
-	  },
-	  'skewY': {
-	    'defaultUnit': 'deg'
-	  },
-	  'scaleX': {
-	    'defaultUnit': '',
-	    'defaultValue': 1
-	  },
-	  'scaleY': {
-	    'defaultUnit': '',
-	    'defaultValue': 1
-	  },
-	  'scaleZ': {
-	    'defaultUnit': '',
-	    'defaultValue': 1
-	  },
-	  'lineHeight': {
-	    'defaultUnit': '',
-	    'defaultValue': 1
-	  }
-	};
 
 	// Exports
 	module.exports = units;
@@ -478,6 +463,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var selfReferenceTriggers = [
 	  'perspective',
+	  'translate',
+	  'translate3d',
 	  'translateX',
 	  'translateY',
 	  'translateZ',
