@@ -49,6 +49,20 @@ describe('units', function() {
         ? valueUnit
         : unit
     });
+
+    expect(units.parse(value)).to.deep.equal({
+      'value': typeof valueNumber === 'number'
+        ? valueNumber
+        : value,
+      'unit': ''
+    });
+
+    expect(units.parse(unit)).to.deep.equal({
+      'value': 0,
+      'unit': typeof valueUnit !== 'undefined'
+        ? valueUnit
+        : unit
+    });
   };
 
   it('should parse valid length values in units#parse', function() {
@@ -85,27 +99,8 @@ describe('units', function() {
     }
   });
 
-  it('should use correct default units when numeric values are passed to units#parse', function() {
-    parse(0, '', 'width', null, 'px');
-    parse(0, '', 'opacity', null, '');
-    parse(0, '', 'rotateX', null, 'deg');
-    parse(0, '', 'rotateY', null, 'deg');
-    parse(0, '', 'rotateZ', null, 'deg');
-    parse(0, '', 'skewX', null, 'deg');
-    parse(0, '', 'skewY', null, 'deg');
-    parse(0, '', 'scaleX', null, '');
-    parse(0, '', 'scaleY', null, '');
-    parse(0, '', 'scaleZ', null, '');
-    parse(0, '', 'lineHeight', null, '');
-  });
-
   it('should use correct default values when non-numeric values are passed to units#parse', function() {
     parse('', 'px', 'width', 0, 'px');
-    parse('', '', 'opacity', 1, '');
-    parse('', '', 'scaleX', 1, '');
-    parse('', '', 'scaleY', 1, '');
-    parse('', '', 'scaleZ', 1, '');
-    parse('', '', 'lineHeight', 1, '');
   });
 
 

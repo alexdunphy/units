@@ -47,20 +47,26 @@ webpackJsonpunits([0],[
 	};
 
 	units.parse = function(value, property) {
-	  var matches = value.toString().trim().match(/^(-?[\d+\.\-]+)([a-z]+|%)$/i);
 	  var parts = {};
+	  var matches;
 
-	  if (matches === null) {
-	    if (isNumeric(value)) {
-	      parts.value = value;
-	      parts.unit = units.getDefaultUnit(property);
-	    } else {
-	      parts.value = units.getDefaultValue(property);
-	      parts.unit = value;
-	    }
+	  if (isNumeric(value)) {
+	    parts.value = value;
+	    parts.unit = property
+	      ? units.getDefaultUnit(property)
+	      : '';
 	  } else {
-	    parts.value = matches[1];
-	    parts.unit = matches[2];
+	    matches = value.toString().trim().match(/^(-?[\d+\.\-]+)([a-z]+|%)$/i);
+
+	    if (matches !== null) {
+	      parts.value = matches[1];
+	      parts.unit = matches[2];
+	    } else {
+	      parts.unit = value;
+	      parts.value = property
+	        ? units.getDefaultValue(property)
+	        : 0;
+	    }
 	  }
 
 	  parts.value = parseFloat(parts.value);
