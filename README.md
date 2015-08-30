@@ -12,6 +12,7 @@ Parse length and angle CSS values and convert between units.
 #### Supported units:
 
 **Length:** `%, ch, cm, em, ex, in, mm, pc, pt, px, rem, vh, vmax, vmin, vw`
+
 **Angle:** `deg, grad, rad, turn`
 
 ## Install
@@ -20,9 +21,7 @@ Parse length and angle CSS values and convert between units.
 
 **npm:** `npm i -S units-css`
 
----
-
-One object is exported:
+(One object is exported:)
 
 ```javascript
 var units = require('units-css');
