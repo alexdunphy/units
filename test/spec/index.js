@@ -148,6 +148,10 @@ describe('units', function() {
     convert('pc', VALUE + 'px', 'width', VALUE / ((DPI / 72) * 12));
     convert('pt', VALUE + 'px', 'width', VALUE * 72 / DPI);
     convert('rem', VALUE + 'px', 'width', VALUE / DOCUMENT_FONT_SIZE);
+    convert('vh', VALUE + 'px', 'width', VALUE / (document.documentElement.clientHeight / 100));
+    convert('vmax', VALUE + 'px', 'width', VALUE / (Math.max(document.documentElement.clientHeight, document.documentElement.clientWidth) / 100));
+    convert('vmin', VALUE + 'px', 'width', VALUE / (Math.min(document.documentElement.clientHeight, document.documentElement.clientWidth) / 100));
+    convert('vw', VALUE + 'px', 'width', VALUE / (document.documentElement.clientWidth / 100));
 
     // Setup + tests + tear-down for units dependent on element content
     element.style.width = null;
@@ -225,6 +229,22 @@ describe('units', function() {
 
   it('should convert valid rem length units in units#convert', function() {
     convert('px', VALUE + 'rem', 'width', VALUE * DOCUMENT_FONT_SIZE);
+  });
+
+  it('should convert valid vh length units in units#convert', function() {
+    convert('px', VALUE + 'vh', 'width', VALUE * (document.documentElement.clientHeight / 100));
+  });
+
+  it('should convert valid vmax length units in units#convert', function() {
+    convert('px', VALUE + 'vmax', 'width', VALUE * (Math.max(document.documentElement.clientHeight, document.documentElement.clientWidth) / 100));
+  });
+
+  it('should convert valid vmin length units in units#convert', function() {
+    convert('px', VALUE + 'vmin', 'width', VALUE * (Math.min(document.documentElement.clientHeight, document.documentElement.clientWidth) / 100));
+  });
+
+  it('should convert valid vw length units in units#convert', function() {
+    convert('px', VALUE + 'vw', 'width', VALUE * (document.documentElement.clientWidth / 100));
   });
 
 
