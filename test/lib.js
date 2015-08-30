@@ -375,19 +375,21 @@ webpackJsonpunits([0],[
 
 	utilities.getCreatedElementDimensions = function(parent, properties, content) {
 	  var element = document.createElement('div');
+	  var style = element.style;
 	  var dimensions;
 	  var property;
 
-	  element.style.position = 'absolute';
-	  element.style.left = '100%';
-	  element.style.top = '100%';
-	  element.style.visibility = 'hidden';
+	  style.position = 'absolute';
+	  style.zIndex = -2147483648;
+	  style.left = 0;
+	  style.top = 0;
+	  style.visibility = 'hidden';
 
 	  if (properties) {
 	    for (property in properties) {
 	      /* istanbul ignore else */
 	      if (properties.hasOwnProperty(property)) {
-	        element.style[property] = properties[property];
+	        style[property] = properties[property];
 	      }
 	    }
 	  }
