@@ -383,7 +383,7 @@ webpackJsonpunits([0],[
 	  element.style.top = '100%';
 	  element.style.visibility = 'hidden';
 
-	  if (typeof properties !== 'undefined') {
+	  if (properties) {
 	    for (property in properties) {
 	      /* istanbul ignore else */
 	      if (properties.hasOwnProperty(property)) {
@@ -392,7 +392,7 @@ webpackJsonpunits([0],[
 	    }
 	  }
 
-	  if (typeof content !== 'undefined') {
+	  if (content) {
 	    element.innerHTML = content;
 	  }
 

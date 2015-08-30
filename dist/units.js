@@ -435,7 +435,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  element.style.top = '100%';
 	  element.style.visibility = 'hidden';
 
-	  if (typeof properties !== 'undefined') {
+	  if (properties) {
 	    for (property in properties) {
 	      /* istanbul ignore else */
 	      if (properties.hasOwnProperty(property)) {
@@ -444,7 +444,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }
 
-	  if (typeof content !== 'undefined') {
+	  if (content) {
 	    element.innerHTML = content;
 	  }
 
