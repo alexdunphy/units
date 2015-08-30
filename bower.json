@@ -1,9 +1,7 @@
 {
   "name": "units-css",
-  "description": "",
-  "authors": [
-    "Alex Dunphy"
-  ],
+  "description": "Parse length and angle CSS values and convert between units",
+  "authors": ["Alex Dunphy <alexanderdunphy@gmail.com>"],
   "repository": {
     "type": "git",
     "url": "git@github.com:alexdunphy/units.git"
