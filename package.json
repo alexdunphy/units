@@ -1,6 +1,6 @@
 {
   "name": "units-css",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Parse length and angle CSS values and convert between units",
   "author": "Alex Dunphy <alexanderdunphy@gmail.com>",
   "main": "index.js",
