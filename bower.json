@@ -19,5 +19,18 @@
   "dependencies": {
     "isnumeric": "*",
     "viewport-dimensions": "~0.1.0"
-  }
+  },
+  "keywords": [
+    "unit",
+    "units",
+    "value",
+    "values",
+    "property",
+    "properties",
+    "rule",
+    "rules",
+    "css",
+    "parse",
+    "convert"
+  ]
 }

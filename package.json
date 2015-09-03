@@ -24,7 +24,6 @@
     "gulp": "^3.9.0",
     "gulp-eslint": "^1.0.0",
     "gulp-header": "^1.7.1",
-    "gulp-if": "^1.2.5",
     "gulp-notify": "^2.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.4.0",
@@ -38,7 +37,7 @@
     "karma-sauce-launcher": "^0.2.14",
     "karma-sinon-chai": "^1.0.0",
     "lodash": "^3.10.1",
-    "mocha": "^2.2.5",
+    "mocha": "^2.3.0",
     "phantomjs": "^1.9.18",
     "run-sequence": "^1.1.2",
     "webpack": "^1.12.0"
@@ -46,5 +45,18 @@
   "dependencies": {
     "isnumeric": "^0.2.0",
     "viewport-dimensions": "^0.1.0"
-  }
+  },
+  "keywords": [
+    "unit",
+    "units",
+    "value",
+    "values",
+    "property",
+    "properties",
+    "rule",
+    "rules",
+    "css",
+    "parse",
+    "convert"
+  ]
 }

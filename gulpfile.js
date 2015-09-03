@@ -32,10 +32,10 @@ var config = {};
 // Paths
 config.path = {};
 config.path.root = require('path').resolve(__dirname) + '/';
+config.path.lib = config.path.root + 'lib/';
 config.path.dist = config.path.root + 'dist/';
 config.path.test = config.path.root + 'test/';
 config.path.spec = config.path.test + 'spec/';
-config.path.lib = config.path.root + 'lib/';
 
 // Package
 config.pkg = require(config.path.root + 'package.json');
@@ -221,7 +221,6 @@ gulp.task('headers', function() {
 //------------------------------------------------------------------------------
 
 var eslint = require('gulp-eslint');
-var gulpif = require('gulp-if');
 
 gulp.task('lint', function() {
   return gulp.src([
@@ -254,7 +253,7 @@ gulp.task('lint', function() {
         logger.success('lint', 'ESLint passed');
       }
     }.bind(this)))
-    .pipe(gulpif(!global.isWatching, eslint.failOnError()));
+    .pipe(eslint.failOnError());
 });
 
 

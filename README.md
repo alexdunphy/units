@@ -57,6 +57,9 @@ units.parse('', 'width');   // {'value': 0, 'unit': 'px'}
 units.parse('', 'opacity'); // {'value': 1, 'unit': ''}
 ```
 
+##### Transforms
+`transform` should not be passed directly as the property name - instead specify a transform keyword (e.g. `rotate`).
+
 ### #convert(to, value, element, property)
 
 Convert a formatted CSS value to a different unit ([see supported units](#supported-units)). For example:
@@ -79,7 +82,8 @@ Conversions to/from `%` require a CSS property name (e.g. _width_) be passed as 
 units.convert('%', '16px', document.getElementById('some-element'), 'translateX'); // 10%
 ```
 
-**N.B.** `transform` should not be passed directly as the property name - instead specify a transform keyword (e.g. `rotate`).
+##### Transforms
+`transform` should not be passed directly as the property name - instead specify a transform keyword (e.g. `rotate`).
 
 ### #getDefaultValue(property)
 
