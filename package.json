@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "isnumeric": "^0.2.0",
-    "viewport-dimensions": "^0.1.0"
+    "viewport-dimensions": "^0.2.0"
   },
   "keywords": [
     "unit",
