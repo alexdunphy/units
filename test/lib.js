@@ -27,7 +27,7 @@ webpackJsonpunits([0],[
 
 	// Imports
 	var conversions = __webpack_require__(3);
-	var isNumeric = __webpack_require__(8);
+	var isNumeric = __webpack_require__(9);
 
 	var units = {};
 
@@ -65,12 +65,21 @@ webpackJsonpunits([0],[
 	  'defaultUnit': 'deg'
 	};
 
+	properties.resolution = {
+	  'defaultUnit': 'dpi',
+	  'defaultValue': 96
+	};
+
 
 	// Public interface
 	//------------------------------------------------------------------------------
 
 	units.convert = function(to, value, element, property) {
 	  var parts = units.parse(value, property);
+
+	  if (to === '_default') {
+	    to = units.getDefaultUnit(property);
+	  }
 
 	  return to === parts.unit
 	    ? parts.value
@@ -129,7 +138,7 @@ webpackJsonpunits([0],[
 	    method = type[fromUnits][toUnits];
 	  } else {
 	    method = type[type._default][toUnits];
-	    value = type[fromUnits][type._default](value, element, property); // Use px conversion as an interstitial step
+	    value = type[fromUnits][type._default](value, element, property); // Use default unit conversion as an interstitial step
 	  }
 
 	  return method(value, element, property);
@@ -164,13 +173,63 @@ webpackJsonpunits([0],[
 
 	// Exports
 	module.exports = {
-	  'length': __webpack_require__(4),
-	  'angle': __webpack_require__(7)
+	  'angle': __webpack_require__(4),
+	  'length': __webpack_require__(5),
+	  'resolution': __webpack_require__(8)
 	};
 
 
 /***/ },
 /* 4 */
+/***/ function(module, exports) {
+
+	/* eslint-env browser, node */
+
+	'use strict';
+
+	var angle = {'_default': 'deg'};
+
+	// Supported units:
+	// deg, grad, rad, turn
+
+	angle.deg = {
+	  'grad': function(value) {
+	    return value / 0.9;
+	  },
+
+	  'rad': function(value) {
+	    return value * (Math.PI / 180);
+	  },
+
+	  'turn': function(value) {
+	    return value / 360;
+	  }
+	};
+
+	angle.grad = {
+	  'deg': function(value) {
+	    return value * 0.9;
+	  }
+	};
+
+	angle.rad = {
+	  'deg': function(value) {
+	    return value / (Math.PI / 180);
+	  }
+	};
+
+	angle.turn = {
+	  'deg': function(value) {
+	    return value * 360;
+	  }
+	};
+
+	// Exports
+	module.exports = angle;
+
+
+/***/ },
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* eslint-env browser, node */
@@ -178,12 +237,10 @@ webpackJsonpunits([0],[
 	'use strict';
 
 	// Imports
-	var utilities = __webpack_require__(5);
-	var viewport = __webpack_require__(6);
+	var utilities = __webpack_require__(6);
+	var viewport = __webpack_require__(7);
 
-	var length = {
-	  '_default': 'px'
-	};
+	var length = {'_default': 'px'};
 
 	// Supported units:
 	// %, ch, cm, em, ex, in, mm, pc, pt, px, rem, vh, vmax, vmin, vw
@@ -345,7 +402,7 @@ webpackJsonpunits([0],[
 
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	/* eslint-env browser, node */
@@ -355,7 +412,9 @@ webpackJsonpunits([0],[
 	var utilities = {};
 
 	utilities.getElementFontSize = function(element) {
-	  return parseFloat(getComputedStyle(element, '').fontSize);
+	  return typeof getComputedStyle !== 'undefined'
+	    ? parseFloat(getComputedStyle(element, '').fontSize)
+	    : 16; // Default browser font-size
 	};
 
 	utilities.getCreatedElementDimensions = function(parent, properties, content) {
@@ -481,55 +540,46 @@ webpackJsonpunits([0],[
 
 
 /***/ },
-/* 6 */,
-/* 7 */
-/***/ function(module, exports) {
+/* 7 */,
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
 
 	/* eslint-env browser, node */
 
 	'use strict';
 
-	var angle = {
-	  '_default': 'deg'
-	};
+	// Imports
+	var utilities = __webpack_require__(6);
+
+	var resolution = {'_default': 'dpi'};
 
 	// Supported units:
-	// deg, grad, rad, turn
+	// dpi, dpcm, dppx
 
-	angle.deg = {
-	  'grad': function(value) {
-	    return value / 0.9;
+	resolution.dpi = {
+	  'dpcm': function(value) {
+	    return value / 2.54;
 	  },
 
-	  'rad': function(value) {
-	    return value * (Math.PI / 180);
-	  },
-
-	  'turn': function(value) {
-	    return value / 360;
+	  'dppx': function(value) {
+	    return value / utilities.DPI;
 	  }
 	};
 
-	angle.grad = {
-	  'deg': function(value) {
-	    return value * 0.9;
+	resolution.dpcm = {
+	  'dpi': function(value) {
+	    return value * 2.54;
 	  }
 	};
 
-	angle.rad = {
-	  'deg': function(value) {
-	    return value / (Math.PI / 180);
-	  }
-	};
-
-	angle.turn = {
-	  'deg': function(value) {
-	    return value * 360;
+	resolution.dppx = {
+	  'dpi': function(value) {
+	    return value * utilities.DPI;
 	  }
 	};
 
 	// Exports
-	module.exports = angle;
+	module.exports = resolution;
 
 
 /***/ }
