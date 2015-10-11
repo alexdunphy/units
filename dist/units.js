@@ -1,4 +1,4 @@
-/*! @link https://github.com/alexdunphy/units, @version 0.3.0, @license MIT */
+/*! @link https://github.com/alexdunphy/units, @version 0.4.0, @license MIT */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
