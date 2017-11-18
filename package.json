@@ -43,7 +43,7 @@
     "webpack": "^1.12.2"
   },
   "dependencies": {
-    "isnumeric": "^0.3.1",
+    "isnumeric": "^0.3.2",
     "viewport-dimensions": "^0.2.0"
   },
   "keywords": [
