@@ -69,7 +69,7 @@ units.convert('cm', '12px'); // 0.3175
 ```
 
 ##### Element
-Conversions to/from `%, ch, em, ex` require an element be passed as the third argument. This should be the element to which the converted CSS value applies/will apply:
+Conversions to/from `%, ch, ex` require an element be passed as the third argument. This should be the element to which the converted CSS value applies/will apply:
 
 ```javascript
 units.convert('em', '16px', document.getElementById('some-element')); // 1em
