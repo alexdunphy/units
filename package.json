@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "isnumeric": "^0.3.1",
+    "terminal-char-width": "^1.0.8",
     "viewport-dimensions": "^0.2.0"
   },
   "keywords": [
